@@ -99,11 +99,34 @@ INDEX_HTML = """<!doctype html>
     }
     .hero {
       display: grid;
-      gap: 12px;
-      margin-bottom: 22px;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .hero-card {
+      background: linear-gradient(135deg, rgba(29, 36, 51, 0.92), rgba(69, 47, 18, 0.9));
+      color: #f8f4eb;
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 24px 60px rgba(30, 23, 18, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-top {
+      display: grid;
+      gap: 10px;
     }
     .eyebrow {
-      color: var(--accent);
+      color: #f6c788;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -116,14 +139,54 @@ INDEX_HTML = """<!doctype html>
     }
     .subtitle {
       margin: 0;
-      color: var(--muted);
-      max-width: 720px;
+      color: rgba(248, 244, 235, 0.78);
+      max-width: 760px;
       line-height: 1.6;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .meta-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
+    }
+    .meta-label {
+      font-size: 12px;
+      color: rgba(248, 244, 235, 0.62);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .meta-value {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .meta-value a {
+      color: #fff3dd;
+      text-decoration: none;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 16px;
+    }
+    .card-primary {
+      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,247,236,0.9));
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+      gap: 16px;
+      margin-top: 16px;
     }
     .card {
       background: var(--panel);
@@ -142,6 +205,7 @@ INDEX_HTML = """<!doctype html>
       font-size: 36px;
       font-weight: 700;
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
     .status {
       display: inline-flex;
@@ -166,6 +230,22 @@ INDEX_HTML = """<!doctype html>
     .section-title {
       margin: 0 0 14px;
       font-size: 20px;
+    }
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: -6px 0 14px;
+    }
+    .section-block {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(30, 41, 59, 0.08);
+    }
+    .section-block:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
     }
     .muted {
       color: var(--muted);
@@ -198,6 +278,11 @@ INDEX_HTML = """<!doctype html>
       gap: 10px;
       margin-top: 14px;
     }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
     button {
       border: 0;
       border-radius: 999px;
@@ -209,6 +294,11 @@ INDEX_HTML = """<!doctype html>
     }
     button.secondary {
       background: #314158;
+    }
+    button.ghost {
+      background: rgba(49, 65, 88, 0.08);
+      color: var(--text);
+      border: 1px solid rgba(30, 41, 59, 0.12);
     }
     .mono {
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -227,12 +317,58 @@ INDEX_HTML = """<!doctype html>
       border-bottom: 1px solid rgba(30, 41, 59, 0.08);
     }
     .row:last-child { border-bottom: 0; }
-    .footer {
-      margin-top: 18px;
+    .summary-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(30, 41, 59, 0.08);
+    }
+    .summary-label {
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.7;
-      text-align: right;
+    }
+    .summary-value {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .panel-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .stacked-sections {
+      display: grid;
+      gap: 18px;
+    }
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+    details {
+      margin-top: 16px;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .footer {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: left;
     }
     .footer a {
       color: var(--accent);
@@ -240,7 +376,10 @@ INDEX_HTML = """<!doctype html>
       font-weight: 700;
     }
     @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
       .two-col { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .panel-grid { grid-template-columns: 1fr; }
       .shell { padding: 20px 14px 36px; }
       .footer { text-align: left; }
     }
@@ -249,13 +388,23 @@ INDEX_HTML = """<!doctype html>
 <body>
   <div class="shell">
     <div class="hero">
-      <div class="eyebrow">Mac NAS Guardian</div>
-      <h1>飞牛 Mac 守护</h1>
-      <p class="subtitle">为 Intel MacBook Pro 做的 NAS 宿主机硬件守护。这里可以看 CPU 温度、风扇状态，并把危险温度设成 80C 自动拉满风扇。</p>
+      <div class="hero-card">
+        <div class="hero-top">
+          <div class="eyebrow">Mac NAS Guardian</div>
+          <h1>MacBook NAS 守护中心</h1>
+          <p class="subtitle">统一管理风扇策略、键盘背光和控制台熄屏。页面先回答“机器现在稳不稳”，再给你高频操作和详细配置。</p>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-inline"><span class="meta-label">作者</span><span class="meta-value">xiaoker</span></div>
+          <div class="meta-inline"><span class="meta-label">博客</span><span class="meta-value"><a href="https://www.xiaoker.com" target="_blank" rel="noreferrer">www.xiaoker.com</a></span></div>
+          <div class="meta-inline"><span class="meta-label">GitHub</span><span class="meta-value"><a href="https://github.com/xiaoker/mac-nas-guardian" target="_blank" rel="noreferrer">mac-nas-guardian</a></span></div>
+          <div class="meta-inline"><span class="meta-label">当前入口</span><span class="meta-value">192.168.3.166:6688</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="grid">
-      <div class="card">
+      <div class="card card-primary">
         <div class="label">CPU 最高温度</div>
         <div class="value" id="tempValue">--</div>
         <div class="status" id="tempStatus">等待数据</div>
@@ -270,12 +419,42 @@ INDEX_HTML = """<!doctype html>
         <div class="value" id="policyValue">--</div>
         <div class="status" id="supportStatus">探测中</div>
       </div>
+      <div class="card">
+        <div class="label">熄屏状态</div>
+        <div class="value" id="screenValue">--</div>
+        <div class="status" id="screenStatus">等待数据</div>
+      </div>
     </div>
 
-    <div class="two-col">
+    <div class="grid-2">
+      <div class="card">
+        <h2 class="section-title">守护总览</h2>
+        <p class="section-subtitle">这里先看当前机器的守护状态，再决定是否需要去下面调整配置。</p>
+        <div class="summary-grid" id="summaryGrid"></div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">快捷操作</h2>
+        <p class="section-subtitle">高频动作不需要翻到底部，直接在这里执行。</p>
+        <div class="button-group">
+          <button type="button" id="refreshBtn">刷新状态</button>
+          <button type="button" class="secondary" id="backlightOffBtn">立即关闭背光</button>
+          <button type="button" class="ghost" id="coolingPresetBtn">切换到强冷</button>
+          <button type="button" class="ghost" id="balancedPresetBtn">恢复均衡</button>
+        </div>
+        <p class="hint">风扇模式切换会直接覆盖当前风扇阈值配置。网页所有配置保存后立即生效。</p>
+      </div>
+    </div>
+
+    <div class="panel-grid">
       <div class="card">
         <h2 class="section-title">风扇策略</h2>
-        <p class="muted">建议把危险温度设成 80C，而不是等到 80C 才开始转。这样能避免 NAS 长时间高负载时先顶到高温。</p>
+        <p class="section-subtitle">建议把危险温度设成 80C，而不是等到 80C 才开始转。这样能避免 NAS 长时间高负载时先顶到高温。</p>
+        <div class="button-group" style="margin-bottom:14px;">
+          <button type="button" class="ghost preset-btn" data-profile="quiet" data-low="40" data-high="55" data-danger="75" data-min="1800" data-max="5000">静音</button>
+          <button type="button" class="ghost preset-btn" data-profile="balanced" data-low="45" data-high="65" data-danger="80" data-min="2200" data-max="6100">均衡</button>
+          <button type="button" class="ghost preset-btn" data-profile="cooling" data-low="40" data-high="55" data-danger="80" data-min="2600" data-max="6100">强冷</button>
+        </div>
         <form id="policyForm" class="form-grid">
           <label>模式
             <select name="profile">
@@ -305,52 +484,63 @@ INDEX_HTML = """<!doctype html>
           </label>
           <div class="actions">
             <button type="submit">保存策略</button>
-            <button type="button" class="secondary" id="refreshBtn">刷新状态</button>
           </div>
         </form>
       </div>
 
       <div class="card">
+        <div class="stacked-sections">
+          <div>
+            <h2 class="section-title">键盘背光</h2>
+            <p class="section-subtitle">适合 NAS 常亮场景。开机可自动关闭，必要时也能保留亮度。</p>
+            <form id="backlightForm" class="form-grid">
+              <label>开机默认行为
+                <select name="disable_on_boot">
+                  <option value="true">开机关闭</option>
+                  <option value="false">开机保留亮度</option>
+                </select>
+              </label>
+              <label>默认亮度
+                <input type="number" name="brightness" min="0" step="1">
+              </label>
+              <div class="actions">
+                <button type="submit">保存背光</button>
+              </div>
+            </form>
+          </div>
+          <div class="section-block">
+            <h2 class="section-title">控制台熄屏</h2>
+            <p class="section-subtitle">屏幕熄灭但系统不休眠，按键可恢复显示。你之前已经在实机上验证过这个方案可用。</p>
+            <form id="consoleForm" class="form-grid">
+              <label>开机自动熄屏
+                <select name="blank_enabled">
+                  <option value="true">启用</option>
+                  <option value="false">关闭</option>
+                </select>
+              </label>
+              <label>空闲几分钟后熄屏
+                <input type="number" name="blank_minutes" min="0" step="1">
+              </label>
+              <div class="actions">
+                <button type="submit">保存熄屏</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
         <h2 class="section-title">宿主机能力</h2>
+        <p class="section-subtitle">这里展示当前机器探测到的硬件能力，用来判断哪些控制项真实可用。</p>
         <div id="capabilities"></div>
-        <h2 class="section-title" style="margin-top:18px;">键盘背光</h2>
-        <form id="backlightForm" class="form-grid">
-          <label>开机默认行为
-            <select name="disable_on_boot">
-              <option value="true">开机关闭</option>
-              <option value="false">开机保留亮度</option>
-            </select>
-          </label>
-          <label>默认亮度
-            <input type="number" name="brightness" min="0" step="1">
-          </label>
-          <div class="actions">
-            <button type="submit">保存背光</button>
-            <button type="button" class="secondary" id="backlightOffBtn">立即关闭</button>
-          </div>
-        </form>
-        <h2 class="section-title" style="margin-top:18px;">控制台熄屏</h2>
-        <form id="consoleForm" class="form-grid">
-          <label>开机自动熄屏
-            <select name="blank_enabled">
-              <option value="true">启用</option>
-              <option value="false">关闭</option>
-            </select>
-          </label>
-          <label>空闲几分钟后熄屏
-            <input type="number" name="blank_minutes" min="0" step="1">
-          </label>
-          <div class="actions">
-            <button type="submit">保存熄屏</button>
-          </div>
-        </form>
-        <h2 class="section-title" style="margin-top:18px;">最近状态</h2>
-        <div class="mono" id="snapshot">等待数据</div>
+        <details>
+          <summary>高级调试信息</summary>
+          <div class="mono" id="snapshot" style="margin-top:12px;">等待数据</div>
+        </details>
       </div>
     </div>
     <div class="footer">
-      作者：xiaoker<br>
-      博客：<a href="https://www.xiaoker.com" target="_blank" rel="noreferrer">www.xiaoker.com</a>
+      项目主页：<a href="https://github.com/xiaoker/mac-nas-guardian" target="_blank" rel="noreferrer">github.com/xiaoker/mac-nas-guardian</a>
     </div>
   </div>
 
@@ -384,6 +574,18 @@ INDEX_HTML = """<!doctype html>
       ];
       const root = document.getElementById('capabilities');
       root.innerHTML = items.map(([k, v]) => '<div class="row"><div>' + k + '</div><strong>' + v + '</strong></div>').join('');
+    }
+
+    function renderSummary(status) {
+      const items = [
+        ['风扇控制', status.capabilities.fan_control_supported ? '已接管' : '仅监控'],
+        ['键盘背光', status.keyboard_backlight.brightness === 0 ? '已关闭' : ('亮度 ' + status.keyboard_backlight.brightness)],
+        ['控制台熄屏', status.console_config.blank_enabled ? ('已启用 / ' + status.console_config.blank_minutes + ' 分钟') : '已关闭'],
+        ['Logo 独立控制', status.logo_backlight.supported ? '可用' : '不支持'],
+        ['最近错误', status.last_error || '运行正常']
+      ];
+      const root = document.getElementById('summaryGrid');
+      root.innerHTML = items.map(([k, v]) => '<div class="summary-item"><div class="summary-label">' + k + '</div><div class="summary-value">' + v + '</div></div>').join('');
     }
 
     function fillForm(policy) {
@@ -426,7 +628,13 @@ INDEX_HTML = """<!doctype html>
       supportStatus.textContent = status.capabilities.fan_control_supported ? '已接管风扇' : '仅监控';
       supportStatus.className = 'status ' + (status.capabilities.fan_control_supported ? 'ok' : 'warn');
 
+      document.getElementById('screenValue').textContent = status.console_config.blank_enabled ? '已启用' : '已关闭';
+      const screenStatus = document.getElementById('screenStatus');
+      screenStatus.textContent = status.console_config.blank_enabled ? (status.console_config.blank_minutes + ' 分钟后熄屏') : '不自动熄屏';
+      screenStatus.className = 'status ' + (status.console_blank_applied ? 'ok' : 'warn');
+
       document.getElementById('snapshot').textContent = JSON.stringify(status, null, 2);
+      renderSummary(status);
       renderCapabilities(status);
       fillForm(status.policy);
       fillBacklightForm(status);
@@ -520,6 +728,56 @@ INDEX_HTML = """<!doctype html>
         return;
       }
       await refreshStatus();
+    });
+
+    async function savePolicy(payload) {
+      const response = await fetch('/api/v1/fan-policy', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        const text = await response.text();
+        alert(text);
+        return;
+      }
+      await refreshStatus();
+    }
+
+    document.querySelectorAll('.preset-btn').forEach((button) => {
+      button.addEventListener('click', () => {
+        const form = document.getElementById('policyForm');
+        form.profile.value = button.dataset.profile;
+        form.low_temp.value = button.dataset.low;
+        form.high_temp.value = button.dataset.high;
+        form.danger_temp.value = button.dataset.danger;
+        form.min_rpm.value = button.dataset.min;
+        form.max_rpm.value = button.dataset.max;
+      });
+    });
+
+    document.getElementById('coolingPresetBtn').addEventListener('click', async () => {
+      await savePolicy({
+        profile: 'cooling',
+        low_temp: 40,
+        high_temp: 55,
+        danger_temp: 80,
+        min_rpm: 2600,
+        max_rpm: 6100,
+        poll_interval_sec: Number(document.getElementById('policyForm').poll_interval_sec.value || 2)
+      });
+    });
+
+    document.getElementById('balancedPresetBtn').addEventListener('click', async () => {
+      await savePolicy({
+        profile: 'balanced',
+        low_temp: 45,
+        high_temp: 65,
+        danger_temp: 80,
+        min_rpm: 2200,
+        max_rpm: 6100,
+        poll_interval_sec: Number(document.getElementById('policyForm').poll_interval_sec.value || 2)
+      });
     });
 
     document.getElementById('refreshBtn').addEventListener('click', refreshStatus);
