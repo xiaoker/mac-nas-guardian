@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  mac-nas-guardian:
+    image: ghcr.io/example/mac-nas-guardian:latest
+    container_name: mac-nas-guardian
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+      - /sys:/sys
+      - /run:/run
+      - ./config:/app/config
+    environment:
+      - GUARDIAN_CONFIG=/app/config/guardian.yaml

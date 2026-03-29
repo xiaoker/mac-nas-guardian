@@ -1,0 +1,58 @@
+{
+  "server": {
+    "listen_host": "0.0.0.0",
+    "listen_port": 18923
+  },
+  "hardware": {
+    "temp_name_allowlist": [
+      "coretemp"
+    ],
+    "temp_input_globs": [
+      "/sys/class/hwmon/*/temp*_input"
+    ],
+    "fan_input_globs": [
+      "/sys/devices/platform/applesmc.*/fan*_input"
+    ],
+    "fan_min_globs": [
+      "/sys/devices/platform/applesmc.*/fan*_min"
+    ],
+    "fan_max_globs": [
+      "/sys/devices/platform/applesmc.*/fan*_max"
+    ],
+    "fan_target_globs": [
+      "/sys/devices/platform/applesmc.*/fan*_target"
+    ],
+    "fan_manual_globs": [
+      "/sys/devices/platform/applesmc.*/fan*_manual"
+    ],
+    "fan_output_globs": [
+      "/sys/devices/platform/applesmc.*/fan*_output"
+    ],
+    "keyboard_backlight_path": "/sys/class/leds/smc::kbd_backlight/brightness",
+    "keyboard_backlight_max_path": "/sys/class/leds/smc::kbd_backlight/max_brightness"
+  },
+  "policy": {
+    "enabled": true,
+    "profile": "balanced",
+    "low_temp": 45.0,
+    "high_temp": 65.0,
+    "danger_temp": 80.0,
+    "min_rpm": 2200,
+    "max_rpm": 6100,
+    "poll_interval_sec": 2,
+    "sensor_fail_max": 3
+  },
+  "backlight": {
+    "disable_on_boot": true,
+    "boot_brightness": 0,
+    "idle_off_minutes": 5
+  },
+  "console": {
+    "blank_enabled": true,
+    "blank_minutes": 1,
+    "tty_path": "/dev/tty0"
+  },
+  "ui": {
+    "title": "Mac NAS Guardian"
+  }
+}

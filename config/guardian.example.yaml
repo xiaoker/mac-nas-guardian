@@ -1,0 +1,23 @@
+server:
+  listen: "0.0.0.0:18923"
+
+hardware:
+  fan_paths_glob: "/sys/devices/platform/applesmc.*/fan*_input"
+  fan_min_glob: "/sys/devices/platform/applesmc.*/fan*_min"
+  fan_max_glob: "/sys/devices/platform/applesmc.*/fan*_max"
+  temp_input_glob: "/sys/class/hwmon/*/temp*_input"
+  kbd_backlight_path: "/sys/class/leds/smc::kbd_backlight/brightness"
+  kbd_backlight_max_path: "/sys/class/leds/smc::kbd_backlight/max_brightness"
+
+policy:
+  profile: "balanced"
+  low_temp: 38
+  high_temp: 50
+  danger_temp: 72
+  min_rpm: 2200
+  max_rpm: 6100
+  poll_interval_sec: 2
+
+backlight:
+  disable_on_boot: true
+  idle_off_minutes: 5
