@@ -70,32 +70,33 @@ INDEX_HTML = """<!doctype html>
   <title>Mac NAS Guardian</title>
   <style>
     :root {
-      --bg: #f3efe6;
-      --panel: rgba(255,255,255,0.78);
-      --line: rgba(30, 41, 59, 0.16);
-      --text: #1d2433;
-      --muted: #536072;
-      --accent: #c75b12;
-      --ok: #2d7d46;
-      --warn: #b56800;
-      --danger: #b42318;
-      --shadow: 0 18px 50px rgba(40, 36, 31, 0.14);
+      --bg: #f6fafb;
+      --panel: #ffffff;
+      --panel-raised: #f8fcfd;
+      --line: #d8e4ea;
+      --text: #11323f;
+      --muted: #5e7480;
+      --accent: #0891b2;
+      --accent-strong: #0e7490;
+      --accent-soft: #e0f7fb;
+      --info: #2563eb;
+      --ok: #15803d;
+      --warn: #b45309;
+      --danger: #be123c;
+      --shadow: 0 14px 34px rgba(15, 59, 78, 0.08);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       color: var(--text);
-      font-family: "Avenir Next", "PingFang SC", "Hiragino Sans GB", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(223, 141, 34, 0.28), transparent 28%),
-        radial-gradient(circle at top right, rgba(55, 116, 167, 0.18), transparent 26%),
-        linear-gradient(180deg, #f5f1e9 0%, #ece4d6 100%);
+      font-family: "Fira Sans", "IBM Plex Sans", "Avenir Next", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: linear-gradient(180deg, #ecfeff 0%, #f8fafc 38%, #eef6f8 100%);
       min-height: 100vh;
     }
     .shell {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 32px 20px 48px;
+      padding: 24px 20px 48px;
     }
     .hero {
       display: grid;
@@ -103,30 +104,27 @@ INDEX_HTML = """<!doctype html>
       margin-bottom: 18px;
     }
     .hero-card {
-      background: linear-gradient(135deg, rgba(29, 36, 51, 0.92), rgba(69, 47, 18, 0.9));
-      color: #f8f4eb;
-      border-radius: 28px;
-      padding: 24px;
-      box-shadow: 0 24px 60px rgba(30, 23, 18, 0.22);
+      background: linear-gradient(135deg, #ffffff 0%, #f1fbfd 100%);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
+      border: 1px solid var(--line);
     }
-    .hero-card::after {
-      content: "";
-      position: absolute;
-      inset: auto -40px -40px auto;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.22), transparent 68%);
-      pointer-events: none;
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
+      gap: 18px;
+      align-items: center;
     }
     .hero-top {
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
     .eyebrow {
-      color: #f6c788;
+      color: var(--accent);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -139,48 +137,73 @@ INDEX_HTML = """<!doctype html>
     }
     .subtitle {
       margin: 0;
-      color: rgba(248, 244, 235, 0.78);
-      max-width: 760px;
+      color: var(--muted);
+      max-width: 720px;
       line-height: 1.6;
     }
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 6px;
+    .hero-side {
+      display: grid;
+      gap: 12px;
     }
-    .meta-inline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0;
-      border-radius: 0;
-      background: transparent;
-      border: 0;
+    .hero-panel {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px 18px;
     }
-    .meta-label {
-      font-size: 12px;
-      color: rgba(248, 244, 235, 0.62);
+    .hero-panel-label {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      margin-bottom: 8px;
     }
-    .meta-value {
-      font-size: 14px;
+    .hero-panel-value {
+      font-size: 28px;
       font-weight: 700;
-      line-height: 1.4;
-      word-break: break-word;
+      line-height: 1.05;
+      margin: 0 0 8px;
     }
-    .meta-value a {
-      color: #fff3dd;
+    .hero-panel-note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 0;
+    }
+    .hero-panel-stack {
+      display: grid;
+      gap: 8px;
+    }
+    .subtitle a {
+      color: var(--accent-strong);
+      font-weight: 700;
       text-decoration: none;
+    }
+    .subtitle a:hover {
+      text-decoration: underline;
     }
     .grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 16px;
     }
+    .stat-card {
+      display: grid;
+      gap: 10px;
+      min-height: 154px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      border-radius: 0;
+      background: var(--accent);
+    }
     .card-primary {
-      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,247,236,0.9));
+      background: linear-gradient(180deg, #ffffff 0%, #edfbfe 100%);
     }
     .grid-2 {
       display: grid;
@@ -191,21 +214,29 @@ INDEX_HTML = """<!doctype html>
     .card {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 8px;
       box-shadow: var(--shadow);
       padding: 20px;
-      backdrop-filter: blur(12px);
     }
     .label {
       color: var(--muted);
       font-size: 13px;
       margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
     }
     .value {
       font-size: 36px;
       font-weight: 700;
       line-height: 1;
       font-variant-numeric: tabular-nums;
+      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .subvalue {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
     }
     .status {
       display: inline-flex;
@@ -216,7 +247,8 @@ INDEX_HTML = """<!doctype html>
       font-size: 13px;
       font-weight: 600;
       margin-top: 12px;
-      background: rgba(255,255,255,0.72);
+      background: #f8fcfd;
+      border: 1px solid var(--line);
     }
     .status.ok { color: var(--ok); }
     .status.warn { color: var(--warn); }
@@ -240,7 +272,7 @@ INDEX_HTML = """<!doctype html>
     .section-block {
       margin-top: 18px;
       padding-top: 18px;
-      border-top: 1px solid rgba(30, 41, 59, 0.08);
+      border-top: 1px solid var(--line);
     }
     .section-block:first-of-type {
       margin-top: 0;
@@ -263,14 +295,22 @@ INDEX_HTML = """<!doctype html>
     }
     input, select, button {
       font: inherit;
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
     }
     input, select {
       width: 100%;
-      border-radius: 14px;
+      min-height: 42px;
+      border-radius: 8px;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,0.88);
+      background: #ffffff;
       padding: 12px 14px;
       color: var(--text);
+    }
+    input:disabled,
+    select:disabled,
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.52;
     }
     .actions {
       display: flex;
@@ -285,27 +325,47 @@ INDEX_HTML = """<!doctype html>
     }
     button {
       border: 0;
-      border-radius: 999px;
+      min-height: 42px;
+      border-radius: 8px;
       padding: 12px 18px;
       background: var(--accent);
-      color: white;
+      color: #ffffff;
       cursor: pointer;
       font-weight: 700;
     }
+    button:hover {
+      background: var(--accent-strong);
+      color: #f8fafc;
+    }
     button.secondary {
-      background: #314158;
+      background: #11323f;
+      color: #ffffff;
     }
     button.ghost {
-      background: rgba(49, 65, 88, 0.08);
-      color: var(--text);
-      border: 1px solid rgba(30, 41, 59, 0.12);
+      background: #ffffff;
+      color: var(--accent-strong);
+      border: 1px solid var(--line);
+    }
+    button.ghost:hover {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    summary:focus-visible,
+    a:focus-visible {
+      outline: 0;
+      box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.2);
+      border-color: rgba(8, 145, 178, 0.55);
     }
     .mono {
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       font-size: 13px;
       white-space: pre-wrap;
-      background: rgba(29, 36, 51, 0.06);
-      border-radius: 16px;
+      background: #f8fcfd;
+      border: 1px solid var(--line);
+      border-radius: 8px;
       padding: 14px;
       line-height: 1.5;
     }
@@ -314,7 +374,7 @@ INDEX_HTML = """<!doctype html>
       justify-content: space-between;
       gap: 16px;
       padding: 10px 0;
-      border-bottom: 1px solid rgba(30, 41, 59, 0.08);
+      border-bottom: 1px solid var(--line);
     }
     .row:last-child { border-bottom: 0; }
     .summary-grid {
@@ -327,9 +387,22 @@ INDEX_HTML = """<!doctype html>
       align-items: center;
       gap: 16px;
       padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.6);
-      border: 1px solid rgba(30, 41, 59, 0.08);
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-left: 4px solid rgba(56, 189, 248, 0.42);
+    }
+    .summary-item.healthy {
+      background: #f0fdf4;
+      border-left-color: #22c55e;
+    }
+    .summary-item.attention {
+      background: #fffbeb;
+      border-left-color: #f59e0b;
+    }
+    .summary-item.problem {
+      background: #fff1f2;
+      border-left-color: #f43f5e;
     }
     .summary-label {
       color: var(--muted);
@@ -345,6 +418,15 @@ INDEX_HTML = """<!doctype html>
       gap: 16px;
       margin-top: 16px;
     }
+    .panel-grid > .card:last-child {
+      grid-column: 1 / -1;
+    }
+    .panel-grid > .card:first-child .form-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .panel-grid > .card:first-child .actions {
+      grid-column: 1 / -1;
+    }
     .stacked-sections {
       display: grid;
       gap: 18px;
@@ -354,6 +436,71 @@ INDEX_HTML = """<!doctype html>
       font-size: 13px;
       line-height: 1.6;
       margin-top: 8px;
+    }
+    .metric-bar {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e6f0f4;
+      border: 1px solid #d8e4ea;
+    }
+    .metric-bar-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+      transition: width 220ms ease, background 220ms ease;
+    }
+    .metric-bar-fill.warn {
+      background: var(--warn);
+    }
+    .metric-bar-fill.danger {
+      background: var(--danger);
+    }
+    .capability-list {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .capability-item {
+      display: grid;
+      align-items: start;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fcfd;
+    }
+    .capability-value {
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .capability-value.ok {
+      color: var(--ok);
+    }
+    .capability-value.warn {
+      color: var(--warn);
+    }
+    .flash {
+      position: sticky;
+      top: 16px;
+      z-index: 5;
+      margin-bottom: 14px;
+      display: none;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #dcfce7;
+      color: #052e16;
+      box-shadow: 0 18px 40px rgba(15, 59, 78, 0.16);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .flash.show {
+      display: block;
+    }
+    .flash.error {
+      background: #ffe4e6;
+      color: #881337;
     }
     details {
       margin-top: 16px;
@@ -375,53 +522,93 @@ INDEX_HTML = """<!doctype html>
       text-decoration: none;
       font-weight: 700;
     }
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-layout { grid-template-columns: 1fr; }
+      .capability-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
     @media (max-width: 860px) {
       .grid { grid-template-columns: 1fr; }
       .two-col { grid-template-columns: 1fr; }
       .grid-2 { grid-template-columns: 1fr; }
       .panel-grid { grid-template-columns: 1fr; }
+      .panel-grid > .card:first-child .form-grid { grid-template-columns: 1fr; }
+      .panel-grid > .card:last-child { grid-column: auto; }
+      .capability-list { grid-template-columns: 1fr; }
       .shell { padding: 20px 14px 36px; }
       .footer { text-align: left; }
+      .button-group,
+      .actions {
+        display: grid;
+      }
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <div class="shell">
+    <div class="flash" id="flashMessage" aria-live="polite"></div>
     <div class="hero">
       <div class="hero-card">
-        <div class="hero-top">
-          <div class="eyebrow">Mac NAS Guardian</div>
-          <h1>MacBook NAS 守护中心</h1>
-          <p class="subtitle">统一管理风扇策略、键盘背光和控制台熄屏。页面先回答“机器现在稳不稳”，再给你高频操作和详细配置。</p>
-        </div>
-        <div class="hero-meta">
-          <div class="meta-inline"><span class="meta-label">作者</span><span class="meta-value">xiaoker</span></div>
-          <div class="meta-inline"><span class="meta-label">博客</span><span class="meta-value"><a href="https://www.xiaoker.com" target="_blank" rel="noreferrer">www.xiaoker.com</a></span></div>
-          <div class="meta-inline"><span class="meta-label">GitHub</span><span class="meta-value"><a href="https://github.com/xiaoker/mac-nas-guardian" target="_blank" rel="noreferrer">mac-nas-guardian</a></span></div>
-          <div class="meta-inline"><span class="meta-label">当前入口</span><span class="meta-value">192.168.3.166:6688</span></div>
+        <div class="hero-layout">
+          <div class="hero-top">
+            <div class="eyebrow">Mac NAS Guardian</div>
+            <h1>MacBook NAS 守护中心</h1>
+            <p class="subtitle">给旧款 Intel MacBook Pro 改飞牛 NAS 使用的宿主机守护程序，集中查看温度、风扇接管、背光和熄屏状态。作者 <a href="https://www.xiaoker.com" target="_blank" rel="noreferrer">xiaoker</a>，源码在 <a href="https://github.com/xiaoker/mac-nas-guardian" target="_blank" rel="noreferrer">GitHub</a>。</p>
+          </div>
+          <div class="hero-side">
+            <div class="hero-panel">
+              <div class="hero-panel-label">当前运行状态</div>
+              <div class="hero-panel-value" id="heroHealth">等待数据</div>
+              <div class="hero-panel-stack">
+                <p class="hero-panel-note" id="heroUpdate">最近更新：--</p>
+                <p class="hero-panel-note" id="heroError">最近告警：无</p>
+                <p class="hero-panel-note" id="heroSupport">硬件能力：--</p>
+                <p class="hero-panel-note">访问入口：<strong id="endpointValue">--</strong></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="grid">
-      <div class="card card-primary">
+      <div class="card card-primary stat-card">
         <div class="label">CPU 最高温度</div>
         <div class="value" id="tempValue">--</div>
+        <div class="subvalue" id="tempMeta">危险温度阈值 --</div>
+        <div class="metric-bar" aria-hidden="true"><div class="metric-bar-fill" id="tempBar"></div></div>
         <div class="status" id="tempStatus">等待数据</div>
       </div>
-      <div class="card">
+      <div class="card stat-card">
         <div class="label">当前风扇转速</div>
         <div class="value" id="fanValue">--</div>
+        <div class="subvalue" id="fanMeta">目标值 --</div>
+        <div class="metric-bar" aria-hidden="true"><div class="metric-bar-fill" id="fanBar"></div></div>
         <div class="status" id="fanStatus">等待数据</div>
       </div>
-      <div class="card">
+      <div class="card stat-card">
         <div class="label">控制状态</div>
         <div class="value" id="policyValue">--</div>
+        <div class="subvalue" id="policyMeta">策略未加载</div>
         <div class="status" id="supportStatus">探测中</div>
       </div>
-      <div class="card">
+      <div class="card stat-card">
         <div class="label">熄屏状态</div>
         <div class="value" id="screenValue">--</div>
+        <div class="subvalue" id="screenMeta">控制台策略未加载</div>
         <div class="status" id="screenStatus">等待数据</div>
       </div>
     </div>
@@ -429,27 +616,27 @@ INDEX_HTML = """<!doctype html>
     <div class="grid-2">
       <div class="card">
         <h2 class="section-title">守护总览</h2>
-        <p class="section-subtitle">这里先看当前机器的守护状态，再决定是否需要去下面调整配置。</p>
+        <p class="section-subtitle">按风险排序展示当前机器是否需要处理。</p>
         <div class="summary-grid" id="summaryGrid"></div>
       </div>
 
       <div class="card">
         <h2 class="section-title">快捷操作</h2>
-        <p class="section-subtitle">高频动作不需要翻到底部，直接在这里执行。</p>
+        <p class="section-subtitle">刷新、背光、风扇模式这些高频动作集中在这里。</p>
         <div class="button-group">
-          <button type="button" id="refreshBtn">刷新状态</button>
-          <button type="button" class="secondary" id="backlightOffBtn">立即关闭背光</button>
-          <button type="button" class="ghost" id="coolingPresetBtn">切换到强冷</button>
-          <button type="button" class="ghost" id="balancedPresetBtn">恢复均衡</button>
+          <button type="button" id="refreshBtn" aria-label="刷新当前状态">刷新状态</button>
+          <button type="button" class="secondary" id="backlightOffBtn" aria-label="立即关闭键盘背光">立即关闭背光</button>
+          <button type="button" class="ghost" id="coolingPresetBtn" aria-label="切换到强冷风扇策略">切换到强冷</button>
+          <button type="button" class="ghost" id="balancedPresetBtn" aria-label="恢复均衡风扇策略">恢复均衡</button>
         </div>
-        <p class="hint">风扇模式切换会直接覆盖当前风扇阈值配置。网页所有配置保存后立即生效。</p>
+        <p class="hint">风扇模式切换会直接覆盖当前阈值配置。所有保存操作会立即生效，并在顶部给出反馈。</p>
       </div>
     </div>
 
     <div class="panel-grid">
       <div class="card">
         <h2 class="section-title">风扇策略</h2>
-        <p class="section-subtitle">建议把危险温度设成 80C，而不是等到 80C 才开始转。这样能避免 NAS 长时间高负载时先顶到高温。</p>
+        <p class="section-subtitle">阈值按从低温到危险温度排列，转速按最小到最大排列。</p>
         <div class="button-group" style="margin-bottom:14px;">
           <button type="button" class="ghost preset-btn" data-profile="quiet" data-low="40" data-high="55" data-danger="75" data-min="1800" data-max="5000">静音</button>
           <button type="button" class="ghost preset-btn" data-profile="balanced" data-low="45" data-high="65" data-danger="80" data-min="2200" data-max="6100">均衡</button>
@@ -492,7 +679,7 @@ INDEX_HTML = """<!doctype html>
         <div class="stacked-sections">
           <div>
             <h2 class="section-title">键盘背光</h2>
-            <p class="section-subtitle">适合 NAS 常亮场景。开机可自动关闭，必要时也能保留亮度。</p>
+            <p class="section-subtitle">无人值守时默认关闭，需要时保留启动亮度。</p>
             <form id="backlightForm" class="form-grid">
               <label>开机默认行为
                 <select name="disable_on_boot">
@@ -510,7 +697,7 @@ INDEX_HTML = """<!doctype html>
           </div>
           <div class="section-block">
             <h2 class="section-title">控制台熄屏</h2>
-            <p class="section-subtitle">屏幕熄灭但系统不休眠，按键可恢复显示。你之前已经在实机上验证过这个方案可用。</p>
+            <p class="section-subtitle">只关闭显示输出，不改变系统运行状态。</p>
             <form id="consoleForm" class="form-grid">
               <label>开机自动熄屏
                 <select name="blank_enabled">
@@ -531,7 +718,7 @@ INDEX_HTML = """<!doctype html>
 
       <div class="card">
         <h2 class="section-title">宿主机能力</h2>
-        <p class="section-subtitle">这里展示当前机器探测到的硬件能力，用来判断哪些控制项真实可用。</p>
+        <p class="section-subtitle">硬件探测决定页面上的控制项是否可用。</p>
         <div id="capabilities"></div>
         <details>
           <summary>高级调试信息</summary>
@@ -559,9 +746,53 @@ INDEX_HTML = """<!doctype html>
       return ['ok', '正常'];
     }
 
+    function percent(value, min, max) {
+      if (value == null || max <= min) return 0;
+      return Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
+    }
+
     function fanText(rpms) {
       if (!rpms || !rpms.length) return '--';
       return rpms.join(' / ') + ' RPM';
+    }
+
+    function profileLabel(profile) {
+      return ({
+        balanced: '均衡',
+        cooling: '强冷',
+        quiet: '静音',
+        custom: '自定义'
+      })[profile] || profile || '--';
+    }
+
+    function formatTimestamp(epochSeconds) {
+      if (!epochSeconds) return '--';
+      const date = new Date(epochSeconds * 1000);
+      return date.toLocaleString('zh-CN', {
+        hour12: false,
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+    }
+
+    function flash(message) {
+      const root = document.getElementById('flashMessage');
+      root.textContent = message;
+      root.classList.remove('error');
+      root.classList.add('show');
+      window.clearTimeout(window.__guardianFlashTimer);
+      window.__guardianFlashTimer = window.setTimeout(() => {
+        root.classList.remove('show');
+      }, 2200);
+    }
+
+    function flashError(message) {
+      const root = document.getElementById('flashMessage');
+      flash(message);
+      root.classList.add('error');
     }
 
     function renderCapabilities(status) {
@@ -573,19 +804,23 @@ INDEX_HTML = """<!doctype html>
         ['Logo 单独控制', status.capabilities.logo_backlight_supported ? '可用' : '不可用']
       ];
       const root = document.getElementById('capabilities');
-      root.innerHTML = items.map(([k, v]) => '<div class="row"><div>' + k + '</div><strong>' + v + '</strong></div>').join('');
+      root.className = 'capability-list';
+      root.innerHTML = items.map(([k, v]) => {
+        const cls = v === '可用' ? 'ok' : 'warn';
+        return '<div class="capability-item"><div>' + k + '</div><div class="capability-value ' + cls + '">' + v + '</div></div>';
+      }).join('');
     }
 
     function renderSummary(status) {
       const items = [
-        ['风扇控制', status.capabilities.fan_control_supported ? '已接管' : '仅监控'],
-        ['键盘背光', status.keyboard_backlight.brightness === 0 ? '已关闭' : ('亮度 ' + status.keyboard_backlight.brightness)],
-        ['控制台熄屏', status.console_config.blank_enabled ? ('已启用 / ' + status.console_config.blank_minutes + ' 分钟') : '已关闭'],
-        ['Logo 独立控制', status.logo_backlight.supported ? '可用' : '不支持'],
-        ['最近错误', status.last_error || '运行正常']
+        ['风扇控制', status.capabilities.fan_control_supported ? '已接管' : '仅监控', status.capabilities.fan_control_supported ? 'healthy' : 'attention'],
+        ['键盘背光', status.keyboard_backlight.brightness === 0 ? '已关闭' : ('亮度 ' + status.keyboard_backlight.brightness), status.keyboard_backlight.brightness === 0 ? 'healthy' : 'attention'],
+        ['控制台熄屏', status.console_config.blank_enabled ? ('已启用 / ' + status.console_config.blank_minutes + ' 分钟') : '已关闭', status.console_config.blank_enabled ? 'healthy' : 'attention'],
+        ['Logo 独立控制', status.logo_backlight.supported ? '可用' : '不支持', 'attention'],
+        ['最近错误', status.last_error || '运行正常', status.last_error ? 'problem' : 'healthy']
       ];
       const root = document.getElementById('summaryGrid');
-      root.innerHTML = items.map(([k, v]) => '<div class="summary-item"><div class="summary-label">' + k + '</div><div class="summary-value">' + v + '</div></div>').join('');
+      root.innerHTML = items.map(([k, v, cls]) => '<div class="summary-item ' + cls + '"><div class="summary-label">' + k + '</div><div class="summary-value">' + v + '</div></div>').join('');
     }
 
     function fillForm(policy) {
@@ -602,6 +837,11 @@ INDEX_HTML = """<!doctype html>
       form.disable_on_boot.value = String(status.backlight_config.disable_on_boot);
       form.brightness.max = status.keyboard_backlight.max || 255;
       form.brightness.value = status.backlight_config.disable_on_boot ? 0 : (status.backlight_config.boot_brightness || status.keyboard_backlight.brightness || 0);
+      const supported = Boolean(status.capabilities.keyboard_backlight_supported);
+      form.disable_on_boot.disabled = !supported;
+      form.brightness.disabled = !supported;
+      form.querySelector('button[type="submit"]').disabled = !supported;
+      document.getElementById('backlightOffBtn').disabled = !supported;
     }
 
     function fillConsoleForm(status) {
@@ -614,26 +854,49 @@ INDEX_HTML = """<!doctype html>
       const temp = status.cpu_temp_c;
       const [levelClass, levelText] = tempClass(temp || 0, status.policy.danger_temp);
       document.getElementById('tempValue').textContent = temp == null ? '--' : temp.toFixed(1) + 'C';
+      document.getElementById('tempMeta').textContent = '危险温度阈值 ' + status.policy.danger_temp + 'C';
+      const tempBar = document.getElementById('tempBar');
+      tempBar.style.width = percent(temp, 0, status.policy.danger_temp) + '%';
+      tempBar.className = 'metric-bar-fill ' + levelClass;
       const tempStatus = document.getElementById('tempStatus');
       tempStatus.textContent = levelText;
       tempStatus.className = 'status ' + levelClass;
 
       document.getElementById('fanValue').textContent = fanText(status.fan_rpm);
+      document.getElementById('fanMeta').textContent = status.last_applied_rpm ? ('目标值 ' + status.last_applied_rpm + ' RPM') : '目标值 --';
+      const fanMax = status.detected_bounds.fan_max || status.policy.max_rpm;
+      const fanMin = status.detected_bounds.fan_min || 0;
+      const averageFan = status.fan_rpm && status.fan_rpm.length ? status.fan_rpm.reduce((sum, rpm) => sum + rpm, 0) / status.fan_rpm.length : null;
+      document.getElementById('fanBar').style.width = percent(averageFan, fanMin, fanMax) + '%';
       const fanStatus = document.getElementById('fanStatus');
       fanStatus.textContent = status.last_applied_rpm ? ('目标 ' + status.last_applied_rpm + ' RPM') : '暂无目标值';
       fanStatus.className = 'status ' + (status.capabilities.fan_control_supported ? 'ok' : 'warn');
 
-      document.getElementById('policyValue').textContent = status.policy.profile;
+      document.getElementById('policyValue').textContent = profileLabel(status.policy.profile);
+      document.getElementById('policyMeta').textContent = status.policy.low_temp + 'C → ' + status.policy.high_temp + 'C 逐步提速';
       const supportStatus = document.getElementById('supportStatus');
       supportStatus.textContent = status.capabilities.fan_control_supported ? '已接管风扇' : '仅监控';
       supportStatus.className = 'status ' + (status.capabilities.fan_control_supported ? 'ok' : 'warn');
 
       document.getElementById('screenValue').textContent = status.console_config.blank_enabled ? '已启用' : '已关闭';
+      document.getElementById('screenMeta').textContent = status.console_blank_applied ? '屏幕可自动熄灭，系统继续运行' : '策略尚未成功应用';
       const screenStatus = document.getElementById('screenStatus');
       screenStatus.textContent = status.console_config.blank_enabled ? (status.console_config.blank_minutes + ' 分钟后熄屏') : '不自动熄屏';
       screenStatus.className = 'status ' + (status.console_blank_applied ? 'ok' : 'warn');
 
+      document.getElementById('heroHealth').textContent = status.last_error ? '需要处理' : (levelClass === 'danger' ? '温度危险' : (levelClass === 'warn' ? '温度偏高' : '运行稳定'));
+      document.getElementById('heroUpdate').textContent = '最近更新：' + formatTimestamp(status.updated_at);
+      document.getElementById('heroError').textContent = '最近告警：' + (status.last_error || '无');
+      const supportedCount = [
+        status.capabilities.temperature_supported,
+        status.capabilities.fan_supported,
+        status.capabilities.fan_control_supported,
+        status.capabilities.keyboard_backlight_supported
+      ].filter(Boolean).length;
+      document.getElementById('heroSupport').textContent = '硬件能力：' + supportedCount + ' / 4 已就绪';
+
       document.getElementById('snapshot').textContent = JSON.stringify(status, null, 2);
+      document.getElementById('endpointValue').textContent = window.location.host || '--';
       renderSummary(status);
       renderCapabilities(status);
       fillForm(status.policy);
@@ -647,6 +910,7 @@ INDEX_HTML = """<!doctype html>
         renderStatus(status);
       } catch (error) {
         document.getElementById('snapshot').textContent = '读取失败：' + error.message;
+        flashError('状态读取失败：' + error.message);
       }
     }
 
@@ -669,10 +933,11 @@ INDEX_HTML = """<!doctype html>
       });
       if (!response.ok) {
         const text = await response.text();
-        alert(text);
+        flashError(text);
         return;
       }
       await refreshStatus();
+      flash('风扇策略已保存');
     });
 
     document.getElementById('backlightForm').addEventListener('submit', async (event) => {
@@ -690,10 +955,11 @@ INDEX_HTML = """<!doctype html>
       });
       if (!response.ok) {
         const text = await response.text();
-        alert(text);
+        flashError(text);
         return;
       }
       await refreshStatus();
+      flash('背光配置已保存');
     });
 
     document.getElementById('backlightOffBtn').addEventListener('click', async () => {
@@ -704,10 +970,11 @@ INDEX_HTML = """<!doctype html>
       });
       if (!response.ok) {
         const text = await response.text();
-        alert(text);
+        flashError(text);
         return;
       }
       await refreshStatus();
+      flash('键盘背光已关闭');
     });
 
     document.getElementById('consoleForm').addEventListener('submit', async (event) => {
@@ -724,10 +991,11 @@ INDEX_HTML = """<!doctype html>
       });
       if (!response.ok) {
         const text = await response.text();
-        alert(text);
+        flashError(text);
         return;
       }
       await refreshStatus();
+      flash('熄屏策略已保存');
     });
 
     async function savePolicy(payload) {
@@ -738,10 +1006,11 @@ INDEX_HTML = """<!doctype html>
       });
       if (!response.ok) {
         const text = await response.text();
-        alert(text);
+        flashError(text);
         return;
       }
       await refreshStatus();
+      flash('风扇模式已切换');
     }
 
     document.querySelectorAll('.preset-btn').forEach((button) => {
